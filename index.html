@@ -39,6 +39,16 @@
   let dx = 2
   let dy = -2
 
+  // Variables paleta
+  const paddleHeight = 10
+  const paddleWidth = 50
+  const dPaddle = 5
+
+  let paddleX = (canvas.width - paddleWidth) / 2
+  let paddleY = canvas.height - paddleHeight - 5
+  let rightPressed = false
+  let leftPressed = false
+
   function drawBall() {
     ctx.beginPath()
     ctx.arc(x, y, ballRadius, 0, Math.PI*2)
@@ -46,12 +56,6 @@
     ctx.fill()
     ctx.closePath()
   }
-
-  function drawPaddle() {}
-
-  function drawBricks() {}
-
-  function collitionsDetection() {}
 
   function ballMovement() {
     // Rebote lateral
@@ -70,10 +74,52 @@
     y += dy
   }
 
-  function paddleMovement() {}
+  function drawPaddle() {
+    ctx.fillStyle = "#09f"
+    ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight)
+  }
+
+  function paddleMovement() {
+    if (rightPressed && paddleX < canvas.width - paddleWidth) {
+      paddleX += dPaddle
+    } else if (leftPressed && paddleX > 0) {
+      paddleX -= dPaddle
+    }
+  }
+
+  function drawBricks() {}
+
+  function collitionsDetection() {}
+
+
+
+
 
   function cleanCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
+  function initEvents() {
+    document.addEventListener('keydown', keyDownHandler)
+    document.addEventListener('keyup', keyUpHandler)
+
+    function keyDownHandler(ev) {
+      const { key } = ev
+      if (key == 'Right' || key === 'ArrowRight') {
+        rightPressed = true
+      } else if (key == 'Left' || key === 'ArrowLeft') {
+        leftPressed = true
+      }
+    }
+
+    function keyUpHandler(ev) {
+      const { key } = ev
+      if (key == 'Right' || key === 'ArrowRight') {
+        rightPressed = false
+      } else if (key == 'Left' || key === 'ArrowLeft') {
+        leftPressed = false
+      }
+    }
   }
 
   function draw() {
@@ -92,6 +138,7 @@
   }
 
   draw()
+  initEvents()
 
 </script>
 </html>
