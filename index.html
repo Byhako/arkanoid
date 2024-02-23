@@ -12,7 +12,7 @@
     canvas {
       border: 4px solid #eee;
       border-bottom: transparent;
-      background: #000;
+      background: url('./bkg.png') repeat;
       margin: 0 auto;
       display: block;
       margin-top: 20px;
@@ -22,9 +22,14 @@
 
 <body>
   <canvas></canvas>
+
+  <img hidden id="sprite" src="./sprite.png" alt="sprite" />
+  <img hidden id="bricks" src="./bricks.png" alt="bricks" />
 </body>
 
 <script>
+  const sprite = document.getElementById('sprite')
+  const bricks = document.getElementById('bricks')
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d') // webgl, bitmaprender
 
@@ -41,7 +46,7 @@
 
   // Variables paleta
   const paddleHeight = 10
-  const paddleWidth = 50
+  const paddleWidth = 80
   const dPaddle = 5
 
   let paddleX = (canvas.width - paddleWidth) / 2
@@ -82,8 +87,19 @@
   }
 
   function drawPaddle() {
-    ctx.fillStyle = "#09f"
-    ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight)
+    // ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight)
+
+    ctx.drawImage(
+      sprite,            // image
+      29,                // clipX, coordenada de recorte
+      174,               // clipY, coordenada de recorte
+      50,       // tamaño recorte
+      paddleHeight,      // tamaño recorte
+      paddleX,           // posicion x imagen
+      paddleY,           // posicion y imagen
+      paddleWidth,       // ancho imagen
+      paddleHeight       // alto imagen
+    )
   }
 
   function paddleMovement() {
