@@ -65,6 +65,13 @@
     // Rebote superior
     if (y <= 0) { dy = -dy }
 
+    // Pelota toca paleta
+    const isBallSameXPaddle = x > paddleX && x < paddleX + paddleWidth
+    const isBallSameYPaddle = y + dy > paddleY
+    if (
+    isBallSameXPaddle && isBallSameYPaddle
+    ) { dy = -dy }
+
     if (y > canvas.height) { 
       console.log('Game Over')
       document.location.reload()
@@ -87,10 +94,9 @@
     }
   }
 
-  function drawBricks() {}
-
   function collitionsDetection() {}
-
+  
+  function drawBricks() {}
 
 
 
