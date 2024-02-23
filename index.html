@@ -53,11 +53,32 @@
 
   function collitionsDetection() {}
 
-  function ballMovement() {}
+  function ballMovement() {
+    // Rebote lateral
+    if (x <= 0 || x >= canvas.width) {
+      dx = -dx
+    }
+    // Rebote superior
+    if (y <= 0) { dy = -dy }
+
+    if (y > canvas.height) { 
+      console.log('Game Over')
+      document.location.reload()
+     }
+
+    x += dx
+    y += dy
+  }
 
   function paddleMovement() {}
 
+  function cleanCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
   function draw() {
+    cleanCanvas()
+
     drawBall()
     drawPaddle()
     drawBricks()
