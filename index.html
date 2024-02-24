@@ -17,10 +17,20 @@
       display: block;
       margin-top: 20px;
     }
+
+    #pause {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
+  <button id="pause" type="button">Pausa</button>
+  <button id="reset" type="button">Reset</button>
+  <button id="inicio" type="button">Inicio</button>
+
+  <img id="title" src="./title.png" alt="title" />
+
   <canvas></canvas>
 
   <img hidden id="sprite" src="./sprite.png" alt="sprite" />
@@ -30,11 +40,16 @@
 <script>
   const sprite = document.getElementById('sprite')
   const $bricks = document.getElementById('bricks')
+  const $pause = document.getElementById('pause')
+  const $reset = document.getElementById('reset')
+  const $inicio = document.getElementById('inicio')
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d') // webgl, bitmaprender
 
   canvas.width = 448
   canvas.height = 400
+  let gameOverY = 350
+  let paused = true
 
   // Variables ball
   const ballRadius = 5
@@ -109,18 +124,37 @@
     isBallSameXPaddle && isBallSameYPaddle
     ) { dy = -dy }
 
-    if (y > canvas.height) { 
+    if (y > canvas.height) {
       console.log('Game Over')
-      document.location.reload()
+      ctx.drawImage(
+        sprite,            // image
+        320,                // clipX, coordenada de recorte
+        0,               // clipY, coordenada de recorte
+        160,                // tamaño recorte
+        21,      // tamaño recorte
+        150,           // posicion x imagen
+        gameOverY,           // posicion y imagen
+        150,       // ancho imagen
+        40       // alto imagen
+      )
+      moveGameOver()
      }
 
     x += dx
     y += dy
   }
 
-  function drawPaddle() {
-    // ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight)
+  function moveGameOver() {
+    if (gameOverY > 200) {
+      gameOverY -= 2
+      dy = 0
+      dx = 0
+    } else {
+      paused = true
+    }
+  }
 
+  function drawPaddle() {
     ctx.drawImage(
       sprite,            // image
       29,                // clipX, coordenada de recorte
@@ -212,22 +246,35 @@
   }
 
   function draw() {
-    cleanCanvas()
-
-    drawBall()
-    drawPaddle()
-    drawBricks()
-
-    // collitions
-    collitionsDetection()
-    ballMovement()
-    paddleMovement()
+    if (!paused) {
+      cleanCanvas()
+  
+      drawBall()
+      drawPaddle()
+      drawBricks()
+  
+      // collitions
+      collitionsDetection()
+      ballMovement()
+      paddleMovement()
+    }
 
     window.requestAnimationFrame(draw)
   }
 
   draw()
   initEvents()
+
+  $pause.addEventListener('click', () => { paused = !paused })
+  $inicio.addEventListener('click', () => { 
+    paused = false
+    $inicio.style.display = 'none'
+    $pause.style.display = 'flex'
+  })
+
+  $reset.addEventListener('click', () => {
+    document.location.reload()
+  })
 
 </script>
 </html>
