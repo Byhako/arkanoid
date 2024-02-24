@@ -1,7 +1,7 @@
 # Arkanoid con javaScript
 
-[Puedes jugar en: ](https://byhako.github.io/arkanoid/)
+[Puedes jugar aquí](https://byhako.github.io/arkanoid/)
 
 <p></p>
 
-¡[image](./image.png)
+<img src="image.png" alt="image" />
