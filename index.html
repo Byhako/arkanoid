@@ -41,7 +41,7 @@
     <div>
       <h3>Sencibilidad</h3>
       <label>
-        <input type="radio" name="sensible" value="3" /> suave
+        <input type="radio" name="sensible" value="3" /> Suave
       </label>
       <label>
         <input type="radio" name="sensible" value="5" checked /> Normal
@@ -72,8 +72,6 @@
   let gameOverY = 350
   let paused = true
 
-  console.log(sensible)
-
   // Variables ball
   const ballRadius = 5
   let x = canvas.width / 2
@@ -95,6 +93,7 @@
   // Variable ladrillos
   const bricksRowCounts = 6
   const bricksColumnCounts = 13
+  let totalBricks = bricksColumnCounts * bricksRowCounts
   const bricksWidth = 32
   const bricksHeight = 16
   const bricksGap = 0
@@ -121,6 +120,14 @@
         status: STATUS.live,
         color: random
       }
+    }
+  }
+
+  function youWin() {
+    if (totalBricks < 1) {
+      paused = true
+      alert('Felicitaciones. Ganaste un pico.')
+      document.location.reload()
     }
   }
 
@@ -211,6 +218,7 @@
         if (isBallSameXBrick && isBallSameYBrick) {
           dy = -dy
           currentBrick.status = STATUS.death
+          totalBricks -= 1
         }
       }
     }
@@ -271,15 +279,16 @@
   function draw() {
     if (!paused) {
       cleanCanvas()
-  
+
       drawBall()
       drawPaddle()
       drawBricks()
-  
+
       // collitions
       collitionsDetection()
       ballMovement()
       paddleMovement()
+      youWin()
     }
 
     window.requestAnimationFrame(draw)
