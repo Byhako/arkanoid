@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <div class="mobile">Only for desktop</div>
   <section class="buttons">
     <button id="reset" type="button">Reset</button>
     <button id="pause" type="button">Pausa</button>
@@ -22,7 +23,36 @@
   </section>
 
   <section class="options">
-
+    <div>
+      <h3>Velocidad bola</h3>
+      <label>
+        <input type="radio" name="speed" value="1" /> Lento
+      </label>
+      <label>
+        <input type="radio" name="speed" value="2" checked /> Medio
+      </label>
+      <label>
+        <input type="radio" name="speed" value="4" /> Rápido
+      </label>
+      <label>
+        <input type="radio" name="speed" value="6" /> Endiablado
+      </label>
+    </div>
+    <div>
+      <h3>Sencibilidad</h3>
+      <label>
+        <input type="radio" name="sensible" value="3" /> suave
+      </label>
+      <label>
+        <input type="radio" name="sensible" value="5" checked /> Normal
+      </label>
+      <label>
+        <input type="radio" name="sensible" value="7" /> Fuerte
+      </label>
+      <label>
+        <input type="radio" name="sensible" value="9" /> Intensa
+      </label>
+    </div>
   </section>
 </body>
 
@@ -32,6 +62,8 @@
   const $pause = document.getElementById('pause')
   const $reset = document.getElementById('reset')
   const $inicio = document.getElementById('inicio')
+  const speed = Number(document?.querySelector('input[name="speed"]:checked')?.value ?? "2")
+  const sensible = Number(document?.querySelector('input[name="sensible"]:checked')?.value ?? "5")
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d') // webgl, bitmaprender
 
@@ -40,18 +72,20 @@
   let gameOverY = 350
   let paused = true
 
+  console.log(sensible)
+
   // Variables ball
   const ballRadius = 5
   let x = canvas.width / 2
   let y = canvas.height - 30
 
-  let dx = 2
-  let dy = -2
+  let dx = speed
+  let dy = -speed
 
   // Variables paleta
   const paddleHeight = 10
   const paddleWidth = 80
-  const dPaddle = 5
+  const dPaddle = sensible
 
   let paddleX = (canvas.width - paddleWidth) / 2
   let paddleY = canvas.height - paddleHeight - 5

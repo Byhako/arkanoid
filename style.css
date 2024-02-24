@@ -12,7 +12,35 @@ body {
   flex-direction: column;
   width: auto;
   justify-content: center;
+  align-items: center;
   height: 100%;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  height: 60px;
+  width: 190px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  outline: none;
+  background-color: #05b34b;
+  border-bottom: 4px solid #01411b;
+  border-right: 4px solid #01411b;
+  color: #eee;
+  cursor: pointer;
+  transition: all ease;
+}
+
+button:hover {
+  background-color: #03c02f;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 .game {
@@ -31,6 +59,28 @@ body {
   display: flex;
   flex-direction: column;
   width: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  color: #eee;
+  margin-bottom: 30px;
+  border: 1px solid #555;
+  padding: 5px 10px 8px;
+  border-radius: 3px;
+  width: 150px;
+}
+
+input {
+  cursor: pointer;
+}
+
+label {
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 canvas {
@@ -44,4 +94,19 @@ canvas {
 
 #pause {
   display: none;
+}
+
+.mobile {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  font-size: large;
+  width: 100%;
+  margin-top: 50px;
+}
+
+@media only screen and (max-width : 900px) {
+  section { display: none; }
+  .mobile { display: flex; }
 }
